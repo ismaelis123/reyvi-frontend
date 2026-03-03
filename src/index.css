@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fondo general */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: linear-gradient(to bottom, #002366, #001122);
+  color: #e5e7eb; /* gris claro para texto normal */
+}
+
+/* Inputs y selects: texto oscuro sobre fondo claro */
+input, textarea, select {
+  color: #111827 !important; /* negro/gris oscuro para que se vea bien */
+  background-color: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+}
+
+/* Placeholder más visible */
+input::placeholder, textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* Focus: borde azul rey + glow sutil */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: #4169E1 !important;
+  box-shadow: 0 0 0 3px rgba(65, 105, 225, 0.3) !important;
+}
+
+/* Botones: estilo profesional con toque gamer */
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(65, 105, 225, 0.4);
+}
+
+/* Títulos con glow sutil */
+.glow-text {
+  color: #D4AF37;
+  text-shadow: 0 0 8px rgba(212, 175, 55, 0.5);
+}
