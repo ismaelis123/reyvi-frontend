@@ -1,70 +1,58 @@
 import { useState, useEffect } from 'react';
 
-export default function Carousel({ images, autoPlay = true, interval = 4000 }) {
+export default function Carousel({ images, interval = 3000 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
-    if (!autoPlay || isPaused || images.length <= 1) return;
+    if (images.length <= 1) return;
 
     const timer = setInterval(() => {
       setCurrentIndex(prev => (prev + 1) % images.length);
-    }, interval);
+    }, interval); // 3000ms = 3 segundos (rápido pero no mareante)
 
     return () => clearInterval(timer);
-  }, [autoPlay, isPaused, images.length, interval]);
-
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-    setIsPaused(true);
-    setTimeout(() => setIsPaused(false), 10000); // pausa autoplay 10s después de clic
-  };
+  }, [images.length, interval]);
 
   return (
-    <div 
-      className="relative w-full h-64 md:h-96 overflow-hidden rounded-2xl shadow-xl group"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-    >
-      {/* Imagen principal */}
-      <img
-        src={images[currentIndex]}
-        alt={`Imagen ${currentIndex + 1}`}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
+    <div className="relative w-full h-64 md:h-96 lg:h-[500px] overflow-hidden rounded-2xl shadow-glow group">
+      {images.map((src, idx) => (
+        <img
+          key={idx}
+          src={src}
+          alt={`Imagen ${idx + 1}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-all duration-700 ${
+            idx === currentIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+          }`}
+        />
+      ))}
 
-      {/* Overlay gradiente */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-
-      {/* Thumbnails */}
+      {/* Thumbnails abajo */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3 bg-black bg-opacity-40 py-2 px-4 rounded-full">
-          {images.map((img, idx) => (
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-3">
+          {images.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => goToSlide(idx)}
-              className={`w-4 h-4 rounded-full transition-all ${
-                idx === currentIndex
-                  ? 'bg-rey-gold scale-125 shadow-lg'
-                  : 'bg-white bg-opacity-70 hover:bg-opacity-90 hover:scale-110'
+              onClick={() => setCurrentIndex(idx)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                idx === currentIndex ? 'bg-rey-gold scale-125 shadow-glow' : 'bg-white/60 hover:bg-white/90 hover:scale-110'
               }`}
             />
           ))}
         </div>
       )}
 
-      {/* Flechas */}
+      {/* Flechas al hover */}
       {images.length > 1 && (
         <>
           <button
-            onClick={() => goToSlide(currentIndex === 0 ? images.length - 1 : currentIndex - 1)}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition opacity-0 group-hover:opacity-100"
+            onClick={() => setCurrentIndex(prev => prev === 0 ? images.length - 1 : prev - 1)}
+            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full hover:bg-black/70 transition opacity-0 group-hover:opacity-100"
           >
             ←
           </button>
           <button
-            onClick={() => goToSlide(currentIndex === images.length - 1 ? 0 : currentIndex + 1)}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full hover:bg-opacity-70 transition opacity-0 group-hover:opacity-100"
+            onClick={() => setCurrentIndex(prev => prev === images.length - 1 ? 0 : prev + 1)}
+            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 text-white p-3 rounded-full hover:bg-black/70 transition opacity-0 group-hover:opacity-100"
           >
             →
           </button>

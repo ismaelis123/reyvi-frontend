@@ -1,21 +1,18 @@
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import Carousel from '../components/Carousel'; // asegúrate de tener este componente
 
-export default function ProductCard({ product, addToCart }) {
+export default function ProductCard({ product }) {
+  const { addToCart } = useContext(CartContext);
+
+  // Si no hay imágenes, usa un placeholder
+  const images = product.imageUrls?.length > 0 ? product.imageUrls : ['https://via.placeholder.com/400x300?text=Sin+Imagen'];
+
   return (
-    <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 group">
-      <Link to={`/producto/${product._id}`} className="block">
-        <div className="relative">
-          <img
-            src={product.imageUrls[0]}
-            alt={product.name}
-            className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-          {product.imageUrls.length > 1 && (
-            <span className="absolute top-3 right-3 bg-rey-gold text-rey-dark text-xs font-bold px-3 py-1 rounded-full">
-              +{product.imageUrls.length - 1}
-            </span>
-          )}
-        </div>
+    <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300">
+      <Link to={`/producto/${product._id}`}>
+        <Carousel images={images} interval={3000} />
       </Link>
       <div className="p-6">
         <Link to={`/producto/${product._id}`}>
@@ -23,14 +20,16 @@ export default function ProductCard({ product, addToCart }) {
             {product.name}
           </h3>
         </Link>
-        <p className="text-gray-600 mb-4 line-clamp-3">{product.description}</p>
+        <p className="text-gray-600 mb-4 line-clamp-3">
+          {product.description || 'Sin descripción'}
+        </p>
         <div className="flex items-center justify-between">
           <span className="text-rey-blue font-medium">
             {product.category?.name || 'Sin categoría'}
           </span>
           <button
             onClick={() => addToCart(product)}
-            className="bg-rey-gold hover:bg-yellow-500 text-rey-dark font-bold py-2 px-6 rounded-full transition-transform hover:scale-105"
+            className="bg-rey-gold hover:bg-yellow-500 text-rey-dark font-bold py-2 px-6 rounded-lg transition"
           >
             + Carrito
           </button>
