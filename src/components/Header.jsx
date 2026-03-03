@@ -37,7 +37,7 @@ export default function Header() {
         <Link to="/" className="flex items-center gap-3">
           <div className="relative h-10 w-10 md:h-12 md:w-12">
             <img 
-              src="src/assets/logorv.png" // o src={logo} si importaste
+              src="/assets/logorv.png" // o src={logo} si importaste
               alt="Reyvi Variedades Los Managuas" 
               className="h-full w-full object-contain rounded-full" 
               onError={(e) => {

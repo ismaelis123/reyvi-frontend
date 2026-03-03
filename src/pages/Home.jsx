@@ -3,9 +3,9 @@ import WhatsAppButton from '../components/WhatsAppButton';
 
 // Lista de imágenes (usa rutas desde public/assets/ o importa si están en src/assets/)
 const reyviImages = [
-  'src/assets/reyvi-muneco.png',   // imagen principal
-  'src/assets/logorv.png',         // logo o segunda
-  'src/assets/tienda.png',         // imagen de tienda
+  '/assets/reyvi-muneco.png',   // imagen principal
+  '/assets/logorv.png',         // logo o segunda
+  '/assets/tienda.png',         // imagen de tienda
   // Agrega aquí más rutas si tenés, ej: '/assets/reyvi-extra.png'
 ];
 
