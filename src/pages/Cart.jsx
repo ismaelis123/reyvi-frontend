@@ -28,17 +28,18 @@ export default function Cart() {
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Lista de productos */}
           <div className="lg:col-span-2 space-y-6">
             {cart.map(item => (
-              <div key={item._id} className="bg-white rounded-xl shadow p-6 flex gap-6">
+              <div key={item._id} className="bg-white rounded-xl shadow p-6 flex gap-6 items-start">
                 <img
-                  src={item.imageUrls[0]}
+                  src={item.imageUrls?.[0] || 'https://via.placeholder.com/128?text=Sin+Imagen'}
                   alt={item.name}
-                  className="w-32 h-32 object-cover rounded-lg"
+                  className="w-32 h-32 object-cover rounded-lg flex-shrink-0"
                 />
                 <div className="flex-1">
                   <h3 className="text-xl font-bold text-rey-dark">{item.name}</h3>
-                  <p className="text-gray-600 mt-2">{item.description}</p>
+                  <p className="text-gray-600 mt-2 line-clamp-3">{item.description || 'Sin descripción'}</p>
                   <p className="text-rey-blue font-medium mt-2">
                     Cantidad: {item.quantity}
                   </p>
@@ -53,6 +54,7 @@ export default function Cart() {
             ))}
           </div>
 
+          {/* Resumen y botón WhatsApp */}
           <div className="lg:col-span-1">
             <div className="bg-white rounded-xl shadow p-8 sticky top-24">
               <h3 className="text-2xl font-bold text-rey-dark mb-6">Resumen</h3>
@@ -66,7 +68,7 @@ export default function Cart() {
                 <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.35 14.65l-2.35-2.35-2.35 2.35-1.41-1.41 2.35-2.35-2.35-2.35 1.41-1.41 2.35 2.35 2.35-2.35 1.41 1.41-2.35 2.35 2.35 2.35-1.41 1.41z"/>
                 </svg>
-                Contactar por WhatsApp
+                Pedir por WhatsApp
               </button>
             </div>
           </div>

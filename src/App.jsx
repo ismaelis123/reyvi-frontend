@@ -14,6 +14,9 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminProducts from './pages/AdminProducts';
 import AdminFairs from './pages/AdminFairs';
 import AdminStores from './pages/AdminStores';
+import FairDetail from './pages/FairDetail';
+import StoreDetail from './pages/StoreDetail';
+import PostDetail from './pages/PostDetail';
 
 function App() {
   return (
@@ -33,6 +36,9 @@ function App() {
           <Route path="/admin/products" element={<AdminProducts />} />
           <Route path="/admin/fairs" element={<AdminFairs />} />
           <Route path="/admin/stores" element={<AdminStores />} />
+          <Route path="/feria/:id" element={<FairDetail />} />
+          <Route path="/tienda/:id" element={<StoreDetail />} />
+          <Route path="/post/:id" element={<PostDetail />} />
         </Routes>
         <Footer />
       </Router>
